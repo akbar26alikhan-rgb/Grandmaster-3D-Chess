@@ -18,21 +18,21 @@ const ChessPiece3D: React.FC<ChessPiece3DProps> = ({ type, color, position, them
     const parts = [];
     const isBlack = color === 'b';
     
-    // Boosted Metallic Materials
+    // Matte, Non-Reflective Materials
     const mat = <meshStandardMaterial 
       color={materialColor} 
-      roughness={0.12} // Slightly more roughness to catch light better
-      metalness={1.0} 
-      envMapIntensity={2.5} // Significant boost for visibility
-      emissive={isBlack ? '#111' : '#222'} // Subtle glow to prevent total black-out
-      emissiveIntensity={0.2}
+      roughness={0.9} // Very high roughness for a flat/matte look
+      metalness={0.0} // No metalness
+      envMapIntensity={0.1} // Minimal environment reflection
+      emissive={'black'} // Remove the subtle glow
+      emissiveIntensity={0}
     />;
     
     const accentMat = <meshStandardMaterial 
       color={accentColor} 
-      roughness={0.1} 
-      metalness={1.0} 
-      envMapIntensity={2.0}
+      roughness={0.9} 
+      metalness={0.0} 
+      envMapIntensity={0.1}
     />;
 
     // Elite Multi-Tiered Base
@@ -178,7 +178,8 @@ const ChessPiece3D: React.FC<ChessPiece3DProps> = ({ type, color, position, them
     <group 
         position={position} 
         rotation={color === 'b' ? [0, Math.PI, 0] : [0, 0, 0]}
-        scale={isSelected ? [1.25, 1.3, 1.25] : [1.1, 1.1, 1.1]}
+        // Reduced overall scale for smaller pieces
+        scale={isSelected ? [0.95, 1.0, 0.95] : [0.85, 0.85, 0.85]}
     >
       {pieceGeometry}
       {isSelected && (
